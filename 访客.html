@@ -1,0 +1,367 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>预约入校详情</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 15px;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1989fa, #46a3ff);
+            color: white;
+            padding: 20px 15px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 4px 12px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: white;
+            border-radius: 14px;
+            font-size: 14px;
+        }
+        
+        .user-info {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #46a3ff, #1989fa);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .user-details h2 {
+            font-size: 18px;
+            margin-bottom: 4px;
+            color: #333;
+        }
+        
+        .user-details p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .notice {
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .notice h2 {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: #333;
+            display: flex;
+            align-items: center;
+        }
+        
+        .notice-icon {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            background: #ff976a;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 18px;
+            font-size: 12px;
+            margin-right: 8px;
+        }
+        
+        .notice ol {
+            padding-left: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .notice li {
+            margin-bottom: 10px;
+        }
+        
+        .info-section {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .info-section:last-child {
+            border-bottom: none;
+        }
+        
+        .info-section h2 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #333;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-icon {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            background: #1989fa;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 18px;
+            font-size: 12px;
+            margin-right: 8px;
+        }
+        
+        .info-item {
+            margin-bottom: 15px;
+            display: flex;
+        }
+        
+        .info-label {
+            width: 100px;
+            font-size: 14px;
+            color: #999;
+            flex-shrink: 0;
+        }
+        
+        .info-content {
+            font-size: 16px;
+            color: #333;
+            font-weight: 500;
+            flex-grow: 1;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 15px;
+            color: #999;
+            font-size: 12px;
+            background: #f9f9f9;
+        }
+        
+        .qr-code {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+        
+        .qr-code h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .qrcode-img {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 10px;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ccc;
+            font-size: 12px;
+        }
+        
+        .time-display {
+            background: #1989fa;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-size: 14px;
+            display: inline-block;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            padding: 0 15px 15px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            text-align: center;
+            color: white;
+            background: #1989fa;
+            cursor: pointer;
+        }
+        
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+        
+        /* 微信浏览器兼容样式 */
+        ::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+            color: transparent;
+        }
+        
+        @media (max-width: 360px) {
+            .info-item {
+                flex-direction: column;
+            }
+            
+            .info-label {
+                width: 100%;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>周（访客）的预约入校</h1>
+            <div class="status">已通过</div>
+        </div>
+        
+        <div class="user-info">
+            <div class="avatar">周</div>
+            <div class="user-details">
+                <h2>周</h2>
+                <p>202 学生（同步）数学与数字科学系\数据科学与大数据技术</p >
+            </div>
+        </div>
+        
+        <div class="notice">
+            <h2><span class="notice-icon">!</span> 注意事项</h2>
+            <ol>
+                <li>一般访客预约流程：访客提交单人信息进行预约→访问老师审批→审批通过(可入校)</li>
+                <li>校友预约流程：校友提交校友及随行人员信息进行预约→校友身份核实审批→审批通过(可入校)(如有报备"随行人员"信息，请携带身份证)</li>
+                <li>您所约定的时间如果还未到，页面显示"禁止通行"。到了约定时间后，页面将会显示"可以通行"</li>
+            </ol>
+        </div>
+        
+        <div class="info-section">
+            <h2><span class="section-icon">一</span> 入校人员信息</h2>
+            
+            <div class="info-item">
+                <div class="info-label">*姓名</div>
+                <div class="info-content">周</div>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-label">*联系电话</div>
+                <div class="info-content">13*******89</div>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-label">*访客单位</div>
+                <div class="info-content">数科系</div>
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <h2><span class="section-icon">二</span> 访校信息</h2>
+            
+            <div class="info-item">
+                <div class="info-label">*访问老师</div>
+                <div class="info-content">王冬薇</div>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-label">*访问日期</div>
+                <div class="info-content">2023年10月15日</div>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-label">*访问时间段</div>
+                <div class="info-content">14:00 - 16:30</div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>办公室预约系统 &copy; 2023 office.chaoxing.com</p >
+        </div>
+    </div>
+    
+    <div class="qr-code">
+        <h3>入校二维码</h3>
+        <div class="qrcode-img">二维码加载中...</div>
+        <div class="time-display">
+            ✓ 当前状态: 可以通行
+        </div>
+    </div>
+    
+    <div class="action-buttons">
+        <button class="btn">分享预约详情</button>
+        <button class="btn btn-secondary">返回首页</button>
+    </div>
+
+    <script>
+        // 简单的页面加载后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 生成简单的二维码模拟
+            var qrcodeEl = document.querySelector('.qrcode-img');
+            qrcodeEl.innerHTML = '<div style="text-align:center;"><div style="font-size:12px;margin-bottom:5px;">微信扫一扫</div><div style="width:120px;height:120px;background:#000;position:relative;margin:0 auto;">' +
+                '<div style="position:absolute;width:100px;height:100px;background:#fff;top:10px;left:10px;"></div>' +
+                '<div style="position:absolute;width:20px;height:20px;background:#000;top:40px;left:40px;"></div>' +
+                '</div></div>';
+                
+            // 添加按钮点击效果
+            var buttons = document.querySelectorAll('.btn');
+            buttons.forEach(function(btn) {
+                btn.addEventListener('touchstart', function() {
+                    this.style.opacity = '0.7';
+                });
+                btn.addEventListener('touchend', function() {
+                    this.style.opacity = '1';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
